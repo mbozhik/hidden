@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   title: 'h1dden collection',
 }
 
+import YandexMetrika from '@/app/components/Global/Analytics'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -18,7 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistMono.variable} font-mono antialiased`}>{children}</body>
+      <body className={`${geistMono.variable} font-mono antialiased`}>
+        {children}
+
+        {process.env.NODE_ENV === 'production' && <YandexMetrika />}
+      </body>
     </html>
   )
 }
