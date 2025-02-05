@@ -11,7 +11,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${involve.variable} font-involve antialiased`}>
+      <body className={`${involve.variable} bg-white text-black font-involve antialiased`}>
         {children}
 
         {process.env.NODE_ENV === 'production' && <YandexMetrika />}

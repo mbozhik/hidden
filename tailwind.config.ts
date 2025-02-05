@@ -4,6 +4,10 @@ import {fontFamily} from 'tailwindcss/defaultTheme'
 export default {
   content: ['./src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
+    screens: {
+      xl: {max: '1780px'},
+      sm: {max: '500px'},
+    },
     fontFamily: {
       involve: ['var(--font-involve)', ...fontFamily.sans],
     },
@@ -11,8 +15,8 @@ export default {
       normal: '400',
     },
     colors: {
-      background: 'var(--background)',
-      foreground: 'var(--foreground)',
+      black: '#000000',
+      white: '#FFFFFF',
     },
     extend: {},
   },
