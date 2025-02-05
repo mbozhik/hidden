@@ -5,7 +5,10 @@ export default {
   content: ['./src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     fontFamily: {
-      mono: ['var(--font-geist-mono)', ...fontFamily.mono],
+      involve: ['var(--font-involve)', ...fontFamily.sans],
+    },
+    fontWeight: {
+      normal: '400',
     },
     colors: {
       background: 'var(--background)',

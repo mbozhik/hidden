@@ -1,11 +1,6 @@
 export {metadata} from '@/lib/layout-config'
-import {Geist_Mono} from 'next/font/google'
+import {involve} from '@/lib/layout-config'
 import './globals.css'
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
 
 import YandexMetrika from '@/app/components/Global/Analytics'
 
@@ -16,7 +11,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistMono.variable} font-mono antialiased`}>
+      <body className={`${involve.variable} font-involve antialiased`}>
         {children}
 
         {process.env.NODE_ENV === 'production' && <YandexMetrika />}
