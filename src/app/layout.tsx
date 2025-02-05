@@ -1,8 +1,8 @@
 export {metadata} from '@/lib/layout-config'
 import {involve} from '@/lib/layout-config'
-import './globals.css'
+import '@/app/globals.css'
 
-import YandexMetrika from '@/app/components/Global/Analytics'
+import YandexMetrika from '~/Global/Analytics'
 
 export default function RootLayout({
   children,
