@@ -1,4 +1,4 @@
-import type {Metadata} from 'next'
+export {metadata} from '@/lib/layout-config'
 import {Geist_Mono} from 'next/font/google'
 import './globals.css'
 
@@ -6,10 +6,6 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 })
-
-export const metadata: Metadata = {
-  title: 'h1dden collection',
-}
 
 import YandexMetrika from '@/app/components/Global/Analytics'
 
