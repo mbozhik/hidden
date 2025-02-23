@@ -20,6 +20,16 @@ export const involve = localFont({
       style: 'normal',
     },
     {
+      path: '../assets/fonts/Gilroy-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../assets/fonts/Gilroy-MediumItalic.woff2',
+      weight: '500',
+      style: 'italic',
+    },
+    {
       path: '../assets/fonts/Gilroy-SemiboldItalic.woff2',
       weight: '600',
       style: 'italic',

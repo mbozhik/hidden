@@ -10,6 +10,7 @@ export type TypoTypes = keyof typeof typoClasses
 
 export const typoClasses = {
   h1: 'text-[32px] !leading-[1.1]',
+  h4: 'text-2xl !leading-[1.2] font-light italic',
   p: 'text-lg !leading-[1.2]',
   span: 'text-sm !leading-[1.1]',
 } as const

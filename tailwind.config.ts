@@ -14,6 +14,7 @@ export default {
     fontWeight: {
       light: '300',
       normal: '400',
+      medium: '500',
       semibold: '600',
     },
     colors: {
@@ -21,6 +22,7 @@ export default {
       white: '#FFFFFF',
       gray: '#D9D9D9',
       red: '#C20000',
+      transparent: 'transparent',
     },
     extend: {},
   },
