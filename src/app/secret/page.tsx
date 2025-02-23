@@ -5,6 +5,7 @@ import {cn} from '@/lib/utils'
 
 import Image from 'next/image'
 import {H1, P, SPAN, typoClasses} from '~/UI/Typography'
+import FileInput from '~~/secret/FileInput'
 
 const screenHeight = 'h-screen !h-svh'
 
@@ -17,8 +18,12 @@ export default function SecretPage() {
         </div>
 
         <div className="h-full grid place-items-center">
-          <section className={cn('px-12 py-10 flex flex-col items-center justify-center gap-10', 'border border-white rounded-[50px]')}>
-            <input className={cn('w-full px-8 py-5 outline-none', typoClasses.h4, 'bg-red text-white placeholder:text-white border border-white rounded-[50px]')} type="email" placeholder="e-mail" />
+          <section className={cn('p-14 pb-20 flex flex-col items-center justify-center gap-10', 'border border-white rounded-[50px]')}>
+            <div className="w-full space-y-4">
+              <FileInput />
+
+              <input className={cn('w-full px-8 py-5 outline-none', typoClasses.h4, 'bg-red text-white placeholder:text-white border border-white rounded-[50px]')} type="email" placeholder="e-mail" />
+            </div>
 
             <div className="space-y-6">
               <H1>You found the hidden page</H1>
@@ -27,8 +32,8 @@ export default function SecretPage() {
               </P>
             </div>
 
-            <div className="p-[3px] border border-transparent bg-red rounded-[50px] group duration-300 hover:border-white/70">
-              <button className="px-12 py-2 bg-white text-red rounded-[50px] font-medium group-hover:shadow-2xl shadow-black duration-300">
+            <div className="p-[3px] border border-transparent bg-red rounded-[50px] duration-300 hover:border-white/80">
+              <button className="px-16 py-3 bg-white text-red rounded-[50px] font-medium">
                 <H1>SEND</H1>
               </button>
             </div>
