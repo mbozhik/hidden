@@ -29,12 +29,12 @@ export default function FileInput() {
   }
 
   return (
-    <div className="w-full py-5 bg-red border border-white rounded-[50px] flex flex-col items-center justify-center cursor-pointer" onClick={() => fileInputRef.current && fileInputRef.current.click()} onDragOver={handleDragOver} onDrop={handleDrop}>
+    <div className="w-full py-5 bg-red border border-white rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] flex flex-col items-center justify-center cursor-pointer" onClick={() => fileInputRef.current && fileInputRef.current.click()} onDragOver={handleDragOver} onDrop={handleDrop}>
       <div className="flex flex-col gap-3.5 items-center">
         <Download className="size-14" />
 
         <div className="inline-flex gap-1 italic">
-          <P className="font-medium ">select a file</P>
+          <P className="font-medium">select a file</P>
           <P className="font-light"> or drag it here</P>
         </div>
       </div>

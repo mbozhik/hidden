@@ -9,10 +9,10 @@ type Props = {
 export type TypoTypes = keyof typeof typoClasses
 
 export const typoClasses = {
-  h1: 'text-[32px] !leading-[1.1]',
-  h4: 'text-2xl !leading-[1.2] font-light italic',
-  p: 'text-lg !leading-[1.2]',
-  span: 'text-sm !leading-[1.1]',
+  h1: 'text-[32px] xl:text-3xl !leading-[1.1]',
+  h4: 'text-2xl xl:text-xl !leading-[1.2] font-light italic',
+  p: 'text-lg xl:text-base !leading-[1.2]',
+  span: 'text-sm sm:text-xs !leading-[1.1]',
 } as const
 
 function Typography({type, className, children}: Props) {
@@ -31,5 +31,6 @@ function createTypography(type: TypoTypes) {
 }
 
 export const H1 = createTypography('h1')
+export const H4 = createTypography('h4')
 export const P = createTypography('p')
 export const SPAN = createTypography('span')
