@@ -7,16 +7,21 @@ export const metadata: Metadata = {
 }
 
 export const involve = localFont({
-  variable: '--font-involve',
+  variable: '--font-gilroy',
   src: [
     {
-      path: '../assets/fonts/Involve-Regular.woff2',
+      path: '../assets/fonts/Gilroy-LightItalic.woff2',
+      weight: '300',
+      style: 'italic',
+    },
+    {
+      path: '../assets/fonts/Gilroy-Regular.woff2',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../assets/fonts/Involve-Oblique.woff2',
-      weight: '400',
+      path: '../assets/fonts/Gilroy-SemiboldItalic.woff2',
+      weight: '600',
       style: 'italic',
     },
   ],

@@ -9,10 +9,12 @@ export default {
       sm: {max: '500px'},
     },
     fontFamily: {
-      involve: ['var(--font-involve)', ...fontFamily.sans],
+      involve: ['var(--font-gilroy)', ...fontFamily.sans],
     },
     fontWeight: {
+      light: '300',
       normal: '400',
+      semibold: '600',
     },
     colors: {
       black: '#000000',
