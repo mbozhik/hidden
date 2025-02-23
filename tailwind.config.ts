@@ -19,6 +19,8 @@ export default {
     colors: {
       black: '#000000',
       white: '#FFFFFF',
+      gray: '#D9D9D9',
+      red: '#C20000',
     },
     extend: {},
   },
