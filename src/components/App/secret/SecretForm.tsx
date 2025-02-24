@@ -1,12 +1,15 @@
 'use client'
 
+import type React from 'react'
 import {useRef, useState} from 'react'
 import {useForm, SubmitHandler} from 'react-hook-form'
-import Image from 'next/image'
+import {supabase} from '@/lib/supabaseClient'
+
+import {cn} from '@/lib/utils'
 import {Download} from 'lucide-react'
 
+import Image from 'next/image'
 import {H1, P, typoClasses} from '~/UI/Typography'
-import {cn} from '@/lib/utils'
 
 type FormData = {
   email: string
@@ -14,16 +17,45 @@ type FormData = {
 }
 
 export default function SecretForm() {
-  const {register, handleSubmit, setValue, watch} = useForm<FormData>()
+  const {register, handleSubmit, setValue, watch, reset} = useForm<FormData>()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const file = watch('file')?.[0]
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log('Form submitted:')
-    console.log('Email:', data.email)
-    if (data.file && data.file.length > 0) {
-      console.log('Selected file:', data.file[0])
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    if (isSubmitting) return
+    setIsSubmitting(true)
+
+    try {
+      if (data.file && data.file.length > 0) {
+        const file = data.file[0]
+        const fileExt = file.name.split('.').pop()
+        const fileName = `${Math.random()}.${fileExt}`
+        const filePath = `${fileName}`
+
+        const {error: uploadError} = await supabase.storage.from('secret').upload(filePath, file)
+
+        if (uploadError) {
+          throw new Error('Error uploading file')
+        }
+
+        const {data: urlData} = supabase.storage.from('secret').getPublicUrl(filePath)
+
+        const {error: insertError} = await supabase.from('secret').insert({email: data.email, file_url: urlData.publicUrl})
+
+        if (insertError) {
+          throw new Error('Error inserting record')
+        }
+
+        console.log('Form submitted successfully')
+        setPreview(null)
+        reset()
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -32,7 +64,6 @@ export default function SecretForm() {
     if (file) {
       setValue('file', event.target.files as FileList)
       setPreview(URL.createObjectURL(file))
-      console.log('Selected file:', file)
     }
   }
 
@@ -46,7 +77,6 @@ export default function SecretForm() {
     if (file) {
       setValue('file', event.dataTransfer.files as FileList)
       setPreview(URL.createObjectURL(file))
-      console.log('Dropped file:', file)
       event.dataTransfer.clearData()
     }
   }
@@ -77,8 +107,8 @@ export default function SecretForm() {
       </div>
 
       <div className="p-[3px] border border-transparent bg-red rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] duration-300 hover:border-white/80">
-        <button type="submit" className="px-16 py-3 bg-white text-red rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] font-medium">
-          <H1 className="sm:text-2xl">SEND</H1>
+        <button type="submit" className="px-16 py-3 bg-white text-red rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] font-medium" disabled={isSubmitting}>
+          <H1 className="sm:text-2xl">{isSubmitting ? 'SENDING...' : 'SEND'}</H1>
         </button>
       </div>
     </form>
