@@ -82,7 +82,7 @@ export default function SecretForm() {
   }
 
   return (
-    <form className="p-14 pb-16 xl:p-10 sm:p-4 flex flex-col items-center justify-center gap-10 xl:gap-8 sm:gap-7 bg-red/10 border border-white rounded-[50px] xl:rounded-[40px] sm:rounded-[35px]" onSubmit={handleSubmit(onSubmit)}>
+    <form className="p-14 pb-16 xl:p-10 sm:p-4 flex flex-col items-center justify-center gap-10 xl:gap-8 sm:gap-7 bg-red/30 border border-white rounded-[50px] xl:rounded-[40px] sm:rounded-[35px]" onSubmit={handleSubmit(onSubmit)}>
       <div className="w-full space-y-4 xl:space-y-3">
         <div className="w-full py-5 bg-red border border-white rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] flex flex-col items-center justify-center cursor-pointer" onClick={() => fileInputRef.current?.click()} onDragOver={handleDragOver} onDrop={handleDrop}>
           <div className="flex flex-col gap-3.5 items-center">
