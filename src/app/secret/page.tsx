@@ -1,4 +1,3 @@
-import logoImage from '$/logo.svg'
 import secretBgImage from '$/secret-bg.jpg'
 
 import {cn} from '@/lib/utils'
@@ -13,10 +12,6 @@ export default function SecretPage() {
   return (
     <main className={cn('relative w-screen', screenHeight)}>
       <div className="relative z-10 size-full grid place-items-center bg-red text-white">
-        <div className="absolute inset-12 sm:inset-3 size-fit xl:size-[17vw] sm:size-[40vw]">
-          <Image src={logoImage} alt="h1dden logo" />
-        </div>
-
         <div className="h-full grid place-items-center sm:px-2">
           <SecretForm />
         </div>
