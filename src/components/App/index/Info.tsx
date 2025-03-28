@@ -5,9 +5,9 @@ import {cn} from '@/lib/utils'
 import {H6, SPAN} from '~/UI/Typography'
 import Badge from '~/UI/Badge'
 
-export default function Info() {
+export default function Info({className}: {className?: string}) {
   return (
-    <section data-section="info-index" className="grid items-center w-full grid-cols-3">
+    <section data-section="info-index" className={cn('grid items-center w-full grid-cols-3', className)}>
       <div className="flex gap-2">
         <Badge content="designed by perevyazkinaaa" href="https://t.me/perevyazkinaaa" />
         <Badge content="developed by bozzhik" href="https://bozzhik.com" />
