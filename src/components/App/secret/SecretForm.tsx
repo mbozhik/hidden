@@ -16,6 +16,8 @@ type FormData = {
   file: FileList
 }
 
+const MAX_FILE_SIZE = 1024 * 1024 // 1MB
+
 export default function SecretForm() {
   const {register, handleSubmit, setValue, watch, reset} = useForm<FormData>()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -30,6 +32,11 @@ export default function SecretForm() {
     try {
       if (data.file && data.file.length > 0) {
         const file = data.file[0]
+
+        if (file.size > MAX_FILE_SIZE) {
+          throw new Error('File size must be less than 1MB')
+        }
+
         const fileExt = file.name.split('.').pop()
         const fileName = `${Math.random()}.${fileExt}`
         const filePath = `${fileName}`
@@ -54,6 +61,8 @@ export default function SecretForm() {
       }
     } catch (error) {
       console.error('Error:', error)
+
+      alert(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setIsSubmitting(false)
     }
@@ -62,6 +71,12 @@ export default function SecretForm() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
+      if (file.size > MAX_FILE_SIZE) {
+        alert('File size must be less than 1MB')
+        event.target.value = ''
+        return
+      }
+
       setValue('file', event.target.files as FileList)
       setPreview(URL.createObjectURL(file))
     }
@@ -75,6 +90,11 @@ export default function SecretForm() {
     event.preventDefault()
     const file = event.dataTransfer.files[0]
     if (file) {
+      if (file.size > MAX_FILE_SIZE) {
+        alert('File size must be less than 1MB')
+        return
+      }
+
       setValue('file', event.dataTransfer.files as FileList)
       setPreview(URL.createObjectURL(file))
       event.dataTransfer.clearData()
@@ -82,7 +102,7 @@ export default function SecretForm() {
   }
 
   return (
-    <form className="p-14 pb-16 xl:p-10 sm:p-4 flex flex-col items-center justify-center gap-10 xl:gap-8 sm:gap-7 bg-red/10 border border-white rounded-[50px] xl:rounded-[40px] sm:rounded-[35px]" onSubmit={handleSubmit(onSubmit)}>
+    <form className="p-14 pb-16 xl:p-10 sm:p-4 flex flex-col items-center justify-center gap-10 xl:gap-8 sm:gap-7 bg-red/30 border border-white rounded-[50px] xl:rounded-[40px] sm:rounded-[35px]" onSubmit={handleSubmit(onSubmit)}>
       <div className="w-full space-y-4 xl:space-y-3">
         <div className="w-full py-5 bg-red border border-white rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] flex flex-col items-center justify-center cursor-pointer" onClick={() => fileInputRef.current?.click()} onDragOver={handleDragOver} onDrop={handleDrop}>
           <div className="flex flex-col gap-3.5 items-center">

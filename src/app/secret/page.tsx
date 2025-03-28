@@ -28,7 +28,7 @@ export default function SecretPage() {
         </div>
 
         <div className="absolute inset-0 -z-20 grid place-items-center h-full">
-          <Image quality={100} priority className="absolute object-cover h-full opacity-80" src={secretBgImage} alt="h1dden secret background" />
+          <Image quality={100} priority className="absolute object-contain sm:object-cover h-full opacity-95" src={secretBgImage} alt="h1dden secret background" />
         </div>
       </div>
     </main>
