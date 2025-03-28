@@ -1,6 +1,8 @@
+import type {HTMLAttributes} from 'react'
+
 import {cn} from '@/lib/utils'
 
-type Props = {
+type Props = HTMLAttributes<HTMLHeadingElement> & {
   type: TypoTypes
   className?: string
   children: React.ReactNode
@@ -17,14 +19,18 @@ export const typoClasses = {
   span: 'text-sm sm:text-xs !leading-[1.1]',
 } as const
 
-function Typography({type, className, children}: Props) {
+function Typography({type, className, children, ...props}: Props) {
   const Element = type
-  return <Element className={cn(typoClasses[type], className)}>{children}</Element>
+  return (
+    <Element className={cn(typoClasses[type], className)} {...props}>
+      {children}
+    </Element>
+  )
 }
 
 function createTypography(type: TypoTypes) {
-  const Component = ({className, children}: Omit<Props, 'type'>) => (
-    <Typography type={type} className={className}>
+  const Component = ({className, children, ...props}: Omit<Props, 'type'>) => (
+    <Typography type={type} className={className} {...props}>
       {children}
     </Typography>
   )

@@ -1,27 +1,22 @@
+'use client'
+
+import {useState, useRef, useEffect} from 'react'
 import {cn} from '@/lib/utils'
+import {RECORDS, AUDIO_URLS} from '@/lib/audio-records'
 
 import {H2} from '~/UI/Typography'
 import Divider from '~~/index/Divider'
 import Details from '~~/index/Details'
+import AudioPlayer from '~/UI/AudioPlayer'
 
-const RECORDS = {
-  1: {
-    a1: 'Upper Class',
-    a2: 'Dirt300',
-    a3: 'Sequoia',
-    a4: 'Cool Down',
-  },
-  2: {
-    b1: 'New Hamp',
-    b2: 'Tamsyam',
-    b3: 'Blade',
-  },
-}
-
-const RecordsList = ({records}: {records: Record<string, string>}) => (
+const RecordsList = ({records, onSelect, activeTrack}: {records: Record<string, string>; onSelect: (key: string) => void; activeTrack: string | null}) => (
   <div className="flex flex-col gap-1 sm:gap-2">
     {Object.entries(records).map(([key, title]) => (
-      <H2 className={cn('cursor-pointer border-b-2 border-transparent', 'hover:text-red hover:border-red duration-200')} key={key}>
+      <H2
+        onClick={() => onSelect(key)} // play record
+        className={cn('cursor-pointer border-b-2 border-transparent', 'hover:text-red hover:border-red duration-200', activeTrack === key && 'text-red border-red')}
+        key={key}
+      >
         {key}. {title}
       </H2>
     ))}
@@ -29,18 +24,38 @@ const RecordsList = ({records}: {records: Record<string, string>}) => (
 )
 
 export default function Player({className}: {className?: string}) {
+  const [selectedTrack, setSelectedTrack] = useState<string | null>(null)
+  const [shouldPlay, setShouldPlay] = useState<boolean>(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    if (!selectedTrack) return
+
+    clearTimeout(timeoutRef.current!)
+    setShouldPlay(false)
+
+    timeoutRef.current = setTimeout(() => setShouldPlay(true), 500)
+    return () => clearTimeout(timeoutRef.current!)
+  }, [selectedTrack])
+
+  const handleTrackSelect = setSelectedTrack
+
   return (
     <section data-section="player-index" className={cn(className)}>
       <Details view="mobile" />
 
-      <div>music player</div>
+      {selectedTrack && (
+        <div className="overflow-hidden">
+          <AudioPlayer audioUrl={AUDIO_URLS[selectedTrack as keyof typeof AUDIO_URLS]} className="h-12" autoPlay={shouldPlay} />
+        </div>
+      )}
 
       <Divider className="sm:hidden" />
 
       <div className="grid grid-cols-2 py-1 sm:flex sm:flex-col-reverse xl:py-0 sm:pt-4 sm:pb-10">
         <div className="flex gap-28 sm:gap-0 sm:justify-between">
-          <RecordsList records={RECORDS[1]} />
-          <RecordsList records={RECORDS[2]} />
+          <RecordsList records={RECORDS[1]} onSelect={handleTrackSelect} activeTrack={selectedTrack} />
+          <RecordsList records={RECORDS[2]} onSelect={handleTrackSelect} activeTrack={selectedTrack} />
         </div>
 
         <Details className="justify-self-end" view="desktop" />
