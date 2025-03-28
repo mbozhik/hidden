@@ -10,14 +10,14 @@ export default function RunningLine() {
         {Array(3)
           .fill(text)
           .map((text, idx) => (
-            <H1 className="mr-6 !leading-none uppercase" key={idx}>
-              {text} <span className="ml-10">/</span>
+            <H1 className="mr-6 sm:mr-0 xl:text-2xl sm:text-xl !leading-none uppercase" key={idx}>
+              {text} <span className="ml-10 sm:ml-4">/</span>
             </H1>
           ))}
       </Marquee>
 
-      <div className="absolute inset-y-0 left-0 w-1/4 pointer-events-none bg-gradient-to-r from-gray"></div>
-      <div className="absolute inset-y-0 right-0 w-1/4 pointer-events-none bg-gradient-to-l from-gray"></div>
+      <div className="absolute inset-y-0 left-0 w-[15%] pointer-events-none bg-gradient-to-r from-gray"></div>
+      <div className="absolute inset-y-0 right-0 w-[15%] pointer-events-none bg-gradient-to-l from-gray"></div>
     </section>
   )
 }
