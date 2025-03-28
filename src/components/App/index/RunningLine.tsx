@@ -1,18 +1,18 @@
 import {Marquee} from '~/Modules/Marquee'
-import {H1} from '~/UI/Typography'
+import {H2} from '~/UI/Typography'
 
 const text = 'Collect 3 records & decipher 3 codes to receive a free special 12'
 
 export default function RunningLine() {
   return (
     <section data-section="runningline-index" className="relative flex flex-col items-center justify-center w-full overflow-hidden bg-gray">
-      <Marquee pauseOnHover className="p-1.5 [--duration:20s]">
+      <Marquee className="p-1.5 [--duration:20s]">
         {Array(3)
           .fill(text)
           .map((text, idx) => (
-            <H1 className="mr-6 sm:mr-0 xl:text-2xl sm:text-xl !leading-none uppercase" key={idx}>
+            <H2 className="mr-6 sm:mr-0" key={idx}>
               {text} <span className="ml-10 sm:ml-4">/</span>
-            </H1>
+            </H2>
           ))}
       </Marquee>
 

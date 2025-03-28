@@ -9,7 +9,7 @@ export default function Info({className}: {className?: string}) {
   return (
     <section data-section="info-index" className={cn('grid items-center w-full grid-cols-3 sm:grid-cols-1', className)}>
       <div className="flex gap-2 sm:hidden">
-        <Badge content="design — perevyazkinaaa" href="https://t.me/perevyazkinaaa" />
+        <Badge content="design — perevyazkinaaa" href="https://www.behance.net/c53dab80" />
         <Badge content="dev — bozzhik" href="https://bozzhik.com" />
       </div>
 
