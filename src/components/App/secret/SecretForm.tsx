@@ -10,6 +10,7 @@ import {Download} from 'lucide-react'
 
 import Image from 'next/image'
 import {H1, P, typoClasses} from '~/UI/Typography'
+import Button from '~/UI/Button'
 
 type FormData = {
   email: string
@@ -119,18 +120,16 @@ export default function SecretForm() {
         <input className={cn('w-full px-8 py-5 outline-none', typoClasses.h4, 'bg-red text-white placeholder:text-white border border-white rounded-[50px] xl:rounded-[40px] sm:rounded-[35px]')} type="email" placeholder="e-mail" {...register('email', {required: true})} />
       </div>
 
-      <div className="flex flex-col justify-center items gap-6 xl:gap-5 sm:gap-4">
+      <div className="flex flex-col justify-center gap-6 items xl:gap-5 sm:gap-4">
         <H1 className="sm:max-w-[15ch] text-center mx-auto">You found the hidden page</H1>
         <P className="text-center">
           *Attach the photo of your HIDDEN001 record <br className="sm:hidden" /> and enter your email to receive <br /> your first code
         </P>
       </div>
 
-      <div className="p-[3px] border border-transparent bg-red rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] duration-300 hover:border-white/80">
-        <button type="submit" className="px-16 py-3 bg-white text-red rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] font-medium" disabled={isSubmitting}>
-          <H1 className="sm:text-2xl">{isSubmitting ? 'SENDING...' : 'SEND'}</H1>
-        </button>
-      </div>
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'SENDING...' : 'SEND'}
+      </Button>
     </form>
   )
 }
