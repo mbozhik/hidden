@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Divider({button, className}: {button?: boolean; className?: string}) {
   return (
-    <section data-section="divider-index" className={cn(button && 'pb-10', className)}>
+    <section data-section="divider-index" className={cn(button && 'pb-10 sm:pb-8', className)}>
       <div className="relative w-full h-0.5 bg-black">
         {button && (
           <div className="absolute inset-0 grid w-full place-items-center">

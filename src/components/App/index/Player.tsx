@@ -1,8 +1,8 @@
 import {cn} from '@/lib/utils'
 
+import {H2} from '~/UI/Typography'
 import Divider from '~~/index/Divider'
-import {H2, H4} from '~/UI/Typography'
-import Link from 'next/link'
+import Details from '~~/index/Details'
 
 const RECORDS = {
   1: {
@@ -19,7 +19,7 @@ const RECORDS = {
 }
 
 const RecordsList = ({records}: {records: Record<string, string>}) => (
-  <div className="flex flex-col gap-1">
+  <div className="flex flex-col gap-1 sm:gap-2">
     {Object.entries(records).map(([key, title]) => (
       <H2 className={cn('cursor-pointer border-b-2 border-transparent', 'hover:text-red hover:border-red duration-200')} key={key}>
         {key}. {title}
@@ -31,26 +31,19 @@ const RecordsList = ({records}: {records: Record<string, string>}) => (
 export default function Player({className}: {className?: string}) {
   return (
     <section data-section="player-index" className={cn(className)}>
+      <Details view="mobile" />
+
       <div>music player</div>
 
-      <Divider />
+      <Divider className="sm:hidden" />
 
-      <div className="grid grid-cols-2 py-2 xl:py-0">
-        <div className="flex gap-28">
+      <div className="grid grid-cols-2 py-1 sm:flex sm:flex-col-reverse xl:py-0 sm:pt-4 sm:pb-10">
+        <div className="flex gap-28 sm:gap-0 sm:justify-between">
           <RecordsList records={RECORDS[1]} />
           <RecordsList records={RECORDS[2]} />
         </div>
 
-        <div className={cn('justify-self-end', 'flex flex-col gap-4 justify-center')}>
-          <H4 className="max-w-[29ch] not-italic font-normal">This website contains a hidden page. Find the page to receive your first code.</H4>
-
-          <H4 className="max-w-[29ch] not-italic font-normal">
-            <Link href="/secret" className="duration-300 text-red hover:text-red/50">
-              «Silence reveals what noises obstruct»
-            </Link>{' '}
-            – Harpocrates says
-          </H4>
-        </div>
+        <Details className="justify-self-end" view="desktop" />
       </div>
     </section>
   )
