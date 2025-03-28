@@ -1,16 +1,28 @@
+import {SCREEN_HEIGHT, WEBSITE_MESSAGES} from '@/app/secret/page'
+
 import {cn} from '@/lib/utils'
 
-const textStyles = {
-  h2: 'text-4xl sm:text-2xl',
-}
+import {SPAN} from '~/UI/Typography'
+import BackgroundImage from '~/UI/BackgroundImage'
 
 export default function IndexPage() {
   return (
-    <main className="grid place-items-center h-svh">
-      <div className="text-center space-y-2 xl:space-y-1.5">
-        <h2 className={textStyles.h2}> HIDDEN001</h2>
+    <main className={cn('relative w-screen', SCREEN_HEIGHT)}>
+      <div className={cn('relative z-10 size-full', 'px-12 py-5 sm:px-3 flex flex-col justify-end gap-10', 'bg-white text-black')}>
+        <div className="grid place-items-center bg-red text-white w-full">some block</div>
 
-        <h3 className={cn(textStyles.h2, 'animate-pulse sm:!mt-0')}>coming soon</h3>
+        <div className="w-full flex items-center justify-between">
+          <div>badge</div>
+
+          <div className="flex flex-col gap-[1px] text-center">
+            {WEBSITE_MESSAGES.map((message, index) => (
+              <SPAN key={index}>{message}</SPAN>
+            ))}
+          </div>
+
+          <div>badge</div>
+        </div>
+        <BackgroundImage page="index" />
       </div>
     </main>
   )
