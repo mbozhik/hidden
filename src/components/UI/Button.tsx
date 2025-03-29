@@ -4,16 +4,16 @@ import {cn} from '@/lib/utils'
 import {H1} from '~/UI/Typography'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant: 'primary' | 'secondary'
   children: React.ReactNode
   className?: string
 }
 
-export default function Button({children, className, ...props}: ButtonProps) {
+export default function Button({variant, children, className, ...props}: ButtonProps) {
   return (
-    <div className="p-[3px] bg-red rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] duration-300 hover:scale-[1.025]">
-      <button className={cn('px-16 py-3 bg-white text-red rounded-[50px] xl:rounded-[40px] sm:rounded-[35px] font-medium', className)} {...props}>
-        <H1 className="sm:text-2xl">{children}</H1>
-      </button>
-    </div>
+    <button className={cn('group/button relative overflow-hidden rounded-[30px] border-2  bg-white px-12 py-3 text-red transition-all duration-200 active:scale-95', variant === 'primary' ? 'border-red' : 'border-white', className)} {...props}>
+      <span className="absolute bottom-0 left-0 z-0 h-0 w-full bg-gradient-to-t from-red to-red/80 transition-all duration-500 group-hover/button:h-full" />
+      <H1 className={cn('sm:text-2xl font-medium', 'relative z-10 transition-all duration-500 group-hover/button:text-white')}>{children}</H1>
+    </button>
   )
 }

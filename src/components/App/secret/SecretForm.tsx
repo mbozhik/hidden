@@ -127,7 +127,7 @@ export default function SecretForm() {
         </P>
       </div>
 
-      <Button type="submit" disabled={isSubmitting}>
+      <Button variant="secondary" type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'SENDING...' : 'SEND'}
       </Button>
     </form>
