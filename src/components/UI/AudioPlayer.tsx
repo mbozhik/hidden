@@ -5,12 +5,14 @@ import {Play, Pause, Volume2, VolumeX} from 'lucide-react'
 import {useState, useRef, useEffect} from 'react'
 import {cn} from '@/lib/utils'
 
-export default function AudioPlayer({audioUrl, className, autoPlay = false}: {audioUrl?: string; className?: string; autoPlay?: boolean}) {
+export default function AudioPlayer({audioUrl, autoPlay = false, onEnded}: {audioUrl?: string; autoPlay?: boolean; onEnded?: () => void}) {
   const audioRef = useRef<HTMLAudioElement>(null)
+  const progressBarRef = useRef<HTMLDivElement>(null)
+  const volumeBarRef = useRef<HTMLDivElement>(null)
   const [state, setState] = useState({
     isPlaying: false,
     isMuted: false,
-    volume: 1,
+    volume: 0.3,
     currentTime: 0,
     duration: 0,
   })
@@ -80,36 +82,73 @@ export default function AudioPlayer({audioUrl, className, autoPlay = false}: {au
       setState((prev) => ({...prev, duration: audio.duration}))
     },
 
-    seek: (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!audio) return
-      const time = Number(e.target.value)
+    seek: (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!audio || !progressBarRef.current || !state.duration) return
+      const rect = progressBarRef.current.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const percentage = x / rect.width
+      const time = percentage * state.duration
       audio.currentTime = time
       setState((prev) => ({...prev, currentTime: time}))
     },
 
-    volumeChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!audio) return
-      const value = Number(e.target.value)
-      audio.volume = value
-      setState((prev) => ({...prev, volume: value}))
+    volumeChange: (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!audio || !volumeBarRef.current) return
+      const rect = volumeBarRef.current.getBoundingClientRect()
+      const y = rect.bottom - e.clientY
+      const percentage = y / rect.height
+      const volume = Math.max(0, Math.min(1, percentage))
+      audio.volume = volume
+      setState((prev) => ({...prev, volume}))
     },
   }
 
-  return (
-    <div data-block="audio-player" className={cn('flex items-center gap-4 py-8 px-6', 'bg-white border-2 border-black rounded-xl', className)}>
-      <audio ref={audioRef} src={audioUrl} onTimeUpdate={handlers.timeUpdate} onLoadedMetadata={handlers.loadedMetadata} />
+  const iconConfig = {
+    default: {
+      wrapper: 'grid place-items-center size-8',
+      icon: 'size-full',
+    },
+    style: 'stroke-red',
+  }
 
-      <button onClick={handlers.togglePlay}>{state.isPlaying ? <Pause /> : <Play />}</button>
+  const iconStyles = cn(iconConfig.default.icon, iconConfig.style)
+
+  return (
+    <div data-block="audio-player" className={cn('!mb-10 xl:!mb-4', 'w-[30vw] sm:w-full flex items-center gap-4 sm:gap-3 py-3.5 sm:py-2 px-6 sm:px-3', 'bg-white border-2 border-black rounded-xl')}>
+      <audio ref={audioRef} src={audioUrl} onTimeUpdate={handlers.timeUpdate} onLoadedMetadata={handlers.loadedMetadata} onEnded={onEnded} />
+
+      <button onClick={handlers.togglePlay} className={cn(iconConfig.default.wrapper)}>
+        {state.isPlaying ? <Pause className={cn(iconStyles, 'fill-red')} /> : <Play className={cn(iconStyles, 'fill-red')} />}
+      </button>
 
       <div className="relative group">
-        <button onClick={handlers.toggleMute}>{state.isMuted ? <VolumeX /> : <Volume2 />}</button>
+        <button onClick={handlers.toggleMute} className="grid place-items-center size-8">
+          {state.isMuted ? <VolumeX className="size-full stroke-red" /> : <Volume2 className="size-full stroke-red" />}
+        </button>
 
-        <div className="absolute hidden mb-2 -translate-x-1/2 bottom-full left-1/2 group-hover:block">
-          <input type="range" min="0" max="1" step="0.1" value={state.volume} onChange={handlers.volumeChange} className="w-24 h-1 rotate-270" />
+        <div className="sm:!hidden absolute hidden -translate-x-1/2 group-hover:block hover:block left-1/2 bottom-full">
+          <div className="p-1.5 bg-white border-2 rounded-xl border-gray">
+            <div ref={volumeBarRef} onClick={handlers.volumeChange} className="w-2.5 h-24 overflow-hidden rotate-180 cursor-pointer rounded-xl bg-gray">
+              <div
+                className="w-full bg-red"
+                style={{
+                  height: `${state.volume * 100}%`,
+                  marginTop: 'auto',
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      <input type="range" min="0" max={state.duration || 100} value={state.currentTime} onChange={handlers.seek} className="flex-1 h-1" disabled={!audioUrl} />
+      <div ref={progressBarRef} onClick={handlers.seek} className="flex-1 h-2.5 overflow-hidden cursor-pointer bg-gray rounded-xl">
+        <div
+          className="h-full bg-red"
+          style={{
+            width: state.duration ? `${(state.currentTime / state.duration) * 100}%` : '0%',
+          }}
+        />
+      </div>
     </div>
   )
 }

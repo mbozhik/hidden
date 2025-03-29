@@ -34,21 +34,23 @@ export default function Player({className}: {className?: string}) {
     clearTimeout(timeoutRef.current!)
     setShouldPlay(false)
 
-    timeoutRef.current = setTimeout(() => setShouldPlay(true), 500)
+    timeoutRef.current = setTimeout(() => setShouldPlay(true), 50)
     return () => clearTimeout(timeoutRef.current!)
   }, [selectedTrack])
 
   const handleTrackSelect = setSelectedTrack
 
+  const handleAudioEnd = () => {
+    setTimeout(() => {
+      setSelectedTrack(null)
+    }, 500)
+  }
+
   return (
     <section data-section="player-index" className={cn(className)}>
-      <Details view="mobile" />
+      <Details view="mobile" className="sm:!mb-6" />
 
-      {selectedTrack && (
-        <div className="overflow-hidden">
-          <AudioPlayer audioUrl={AUDIO_URLS[selectedTrack as keyof typeof AUDIO_URLS]} className="h-12" autoPlay={shouldPlay} />
-        </div>
-      )}
+      {selectedTrack && <AudioPlayer audioUrl={AUDIO_URLS[selectedTrack as keyof typeof AUDIO_URLS]} autoPlay={shouldPlay} onEnded={handleAudioEnd} />}
 
       <Divider className="sm:hidden" />
 
