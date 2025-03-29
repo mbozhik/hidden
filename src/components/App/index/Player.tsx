@@ -52,7 +52,7 @@ export default function Player({className}: {className?: string}) {
 
       {selectedTrack && <AudioPlayer audioUrl={AUDIO_URLS[selectedTrack as keyof typeof AUDIO_URLS]} autoPlay={shouldPlay} onEnded={handleAudioEnd} />}
 
-      <Divider className="sm:hidden" />
+      <Divider className="relative -z-50 sm:hidden" />
 
       <div className="grid grid-cols-2 py-1 sm:flex sm:flex-col-reverse xl:py-0 sm:pt-4 sm:pb-10">
         <div className="flex gap-28 sm:gap-0 sm:justify-between">

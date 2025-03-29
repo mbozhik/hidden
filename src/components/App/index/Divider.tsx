@@ -9,7 +9,7 @@ export default function Divider({button, className}: {button?: boolean; classNam
         {button && (
           <div className="absolute inset-0 grid w-full place-items-center">
             <Link className="absolute block" href="https://linktr.ee/hiddencollection" target="_blank">
-              <Button>Buy vinyl</Button>
+              <Button className="uppercase">Buy vinyl</Button>
             </Link>
           </div>
         )}
