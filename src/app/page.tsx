@@ -1,16 +1,26 @@
+import {SCREEN_HEIGHT} from '@/app/secret/page'
+
 import {cn} from '@/lib/utils'
 
-const textStyles = {
-  h2: 'text-4xl sm:text-2xl',
-}
+import Info from '~~/index/Info'
+import RunningLine from '~~/index/RunningLine'
+import Divider from '~~/index/Divider'
+import Player from '~~/index/Player'
+import BackgroundImage from '~/UI/BackgroundImage'
+
+const websitePX = 'px-12 xl:px-8 sm:px-3'
 
 export default function IndexPage() {
   return (
-    <main className="grid place-items-center h-svh">
-      <div className="text-center space-y-2 xl:space-y-1.5">
-        <h2 className={textStyles.h2}> HIDDEN001</h2>
+    <main className={cn('relative w-screen', SCREEN_HEIGHT)}>
+      <div className={cn('relative z-10 size-full', 'py-5  flex flex-col justify-end gap-6 sm:gap-5', 'bg-white text-black')}>
+        <Player className={cn('space-y-6 sm:space-y-5', websitePX)} />
 
-        <h3 className={cn(textStyles.h2, 'animate-pulse sm:!mt-0')}>coming soon</h3>
+        <Divider button={true} className={websitePX} />
+        <RunningLine />
+        <Info className={websitePX} />
+
+        <BackgroundImage page="index" />
       </div>
     </main>
   )
