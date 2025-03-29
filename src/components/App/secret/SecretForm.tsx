@@ -120,7 +120,7 @@ export default function SecretForm() {
         <input className={cn('w-full px-8 py-5 outline-none', typoClasses.h4, 'bg-red text-white placeholder:text-white border border-white rounded-[50px] xl:rounded-[40px] sm:rounded-[35px]')} type="email" placeholder="e-mail" {...register('email', {required: true})} />
       </div>
 
-      <div className="flex flex-col justify-center gap-6 items xl:gap-5 sm:gap-4">
+      <div className="flex flex-col justify-center gap-6 xl:gap-5 sm:gap-4">
         <H1 className="sm:max-w-[15ch] text-center mx-auto">You found the hidden page</H1>
         <P className="text-center">
           *Attach the photo of your HIDDEN001 record <br className="sm:hidden" /> and enter your email to receive <br /> your first code

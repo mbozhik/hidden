@@ -8,7 +8,7 @@ export default function BackgroundImage({page}: {page: 'index' | 'secret'}) {
   const secretPage = page === 'secret'
   return (
     <div className="absolute inset-0 grid h-full -z-20 place-items-center">
-      <Image quality={100} priority className={cn('absolute object-cover h-full opacity-95', !secretPage && 'sm:opacity-70')} src={secretPage ? secretBgImage : indexBgImage} alt="h1dden secret background" />
+      <Image priority quality={100} className={cn('absolute object-contain sm:object-cover h-full opacity-95', !secretPage && 'sm:opacity-70 !object-cover')} src={secretPage ? secretBgImage : indexBgImage} alt="h1dden secret background" />
 
       {page === 'index' && <div className="absolute bottom-0 w-full h-[10vh] bg-gradient-to-b from-white/40 to-white"></div>}
     </div>
